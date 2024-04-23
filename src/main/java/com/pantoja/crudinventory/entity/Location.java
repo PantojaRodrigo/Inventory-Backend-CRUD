@@ -1,6 +1,8 @@
 package com.pantoja.crudinventory.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -8,7 +10,6 @@ import jakarta.validation.constraints.NotNull;
 public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull(message = "is required")
     @Column(name = "locationId")
     private int locationId;
     @NotNull(message = "is required")
@@ -23,6 +24,7 @@ public class Location {
     }
 
     public Location(String state, String address, int phoneNumber) {
+
         this.state = state;
         this.address = address;
         this.phoneNumber = phoneNumber;

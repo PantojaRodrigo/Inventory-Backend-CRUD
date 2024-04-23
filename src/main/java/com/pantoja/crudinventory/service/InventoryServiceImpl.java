@@ -1,26 +1,31 @@
 package com.pantoja.crudinventory.service;
 
 import com.pantoja.crudinventory.misc.ItemNotFoundException;
-import com.pantoja.crudinventory.dao.InventoryDAO;
+import com.pantoja.crudinventory.dao.InventoryRepository;
 import com.pantoja.crudinventory.entity.Item;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 
-import java.util.List;
-import java.util.Optional;
 @Repository
 public class InventoryServiceImpl implements InventoryService{
 
-    private InventoryDAO inventoryRepository;
+    private InventoryRepository inventoryRepository;
     @Autowired
-    public InventoryServiceImpl(InventoryDAO inventoryRepository) {
+    public InventoryServiceImpl(InventoryRepository inventoryRepository) {
         this.inventoryRepository = inventoryRepository;
     }
 
     @Override
-    public List<Item> findAll() {
-        return inventoryRepository.findAll();
+    public Flux<Item> findAll(String state) {
+        Flux<Item> items = Flux.fromIterable(inventoryRepository.findAll());
+        return items.filter(i->i.getLocation().getState().contains(state));
+    }
+
+    @Override
+    public Flux<Item> findAll() {
+        return Flux.fromIterable(inventoryRepository.findAll());
     }
 
     @Override
