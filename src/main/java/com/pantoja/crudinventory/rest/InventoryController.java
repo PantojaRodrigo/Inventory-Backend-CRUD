@@ -30,12 +30,7 @@ public class InventoryController {
 
     @GetMapping("/items/{id}")
     public Item getItemById(@PathVariable("id") int id){
-
-        Item item = inventoryService.findById(id);
-        if(item == null){
-            throw new RuntimeException("Item not found: "+id);
-        }
-        return  item;
+        return inventoryService.findById(id);
     }
 
     @PostMapping("/items")
@@ -47,12 +42,10 @@ public class InventoryController {
         return dbItem;
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/items/{id}")
     public String deleteItem(@PathVariable int id){
         Item item = inventoryService.findById(id);
-        if(item == null){
-            throw new RuntimeException("Item not found: "+id);
-        }
         inventoryService.deleteById(id);
         return "Deleted item id: "+ id;
 
