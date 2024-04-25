@@ -1,6 +1,7 @@
 package com.pantoja.crudinventory.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +10,8 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = "item_location")
 public class Location {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "is required")
+    @Min(value = 1)
     @Column(name = "locationId")
     private int locationId;
     @NotNull(message = "is required")
@@ -23,8 +25,8 @@ public class Location {
     public Location() {
     }
 
-    public Location(String state, String address, int phoneNumber) {
-
+    public Location(int locationId, String state, String address, int phoneNumber) {
+        this.locationId = locationId;
         this.state = state;
         this.address = address;
         this.phoneNumber = phoneNumber;

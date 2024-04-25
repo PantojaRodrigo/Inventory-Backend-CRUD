@@ -36,8 +36,6 @@ public class InventoryController {
     @PostMapping("/items")
     @ResponseStatus(HttpStatus.CREATED)
     public Item addItem(@Valid @RequestBody Item item){
-
-        item.setItemId(0);
         Item dbItem = inventoryService.save(item);
         return dbItem;
     }

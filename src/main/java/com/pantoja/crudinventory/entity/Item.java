@@ -8,8 +8,9 @@ import jakarta.validation.constraints.*;
 @Table(name = "item")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "itemId")
+    @NotNull(message = "is required")
+    @Min(value = 1)
+    @Column(name = "itemId",unique = true)
     private int itemId;
     @NotEmpty(message = "is required")
     @Column(name = "itemName")
@@ -24,7 +25,8 @@ public class Item {
     public Item() {
     }
 
-    public Item( String itemName, String description, Location location) {
+    public Item(int itemId, String itemName, String description, Location location) {
+        this.itemId = itemId;
         this.itemName = itemName;
         this.description = description;
         this.location = location;

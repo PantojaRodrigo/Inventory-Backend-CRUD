@@ -1,5 +1,6 @@
 package com.pantoja.crudinventory.service;
 
+import com.pantoja.crudinventory.misc.ItemIdExistingException;
 import com.pantoja.crudinventory.misc.ItemNotFoundException;
 import com.pantoja.crudinventory.dao.InventoryRepository;
 import com.pantoja.crudinventory.entity.Item;
@@ -36,6 +37,7 @@ public class InventoryServiceImpl implements InventoryService{
     @Override
     @Transactional
     public Item save(Item item) {
+        if(inventoryRepository.findById(item.getItemId()).isPresent()) throw  new ItemIdExistingException(item.getItemId());
         return inventoryRepository.save(item);
     }
 
