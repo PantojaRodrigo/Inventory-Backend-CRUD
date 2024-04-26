@@ -106,6 +106,7 @@ class InventoryServiceImplTest {
                 .when(inventoryRepositoryMock).save(item_dup);
         assertThrows(ItemIdExistingException.class,()->inventoryService.save(item_dup));
     }
+    //Falla
     @Test
     void save_withNullArgs() {
         Location loc = new Location(1,null,"WMD1",12345);

@@ -98,14 +98,14 @@ class InventoryControllerTest {
                 .when(inventoryServiceMock).save(item_dup);
         assertThrows(ItemIdExistingException.class,()->inventoryController.addItem(item_dup));
     }
-
-    /*@Test
+    //Falla
+    @Test
     void addItem_badAttributes() {
-        Location loc = new Location("null","WMD1",12345);
-        Item item = new Item("null","A remo",loc);
-        when(inventoryServiceMock.save(any(Item.class))).thenThrow(new MethodArgumentNotValidException());
+        Location loc = new Location(1,null,"WMD1",12345);
+        Item item = new Item(1,"REMO","A remo",loc);
+        when(inventoryServiceMock.save(any(Item.class))).thenThrow(new MethodArgumentNotValidException(null,null));
         assertThrows(MethodArgumentNotValidException.class,()->inventoryController.addItem(item));
-    }*/
+    }
 
     @Test
     void deleteItem() {
@@ -113,4 +113,12 @@ class InventoryControllerTest {
         String actual = inventoryController.deleteItem(1);
         assertEquals("Deleted item id: 1",actual);
     }
+
+    @Test
+    void deleteById_notFound() {
+        when(inventoryServiceMock.findById(99)).thenThrow(ItemNotFoundException.class);
+        assertThrows(ItemNotFoundException.class,()->inventoryController.deleteItem(99)) ;
+
+    }
+
 }
