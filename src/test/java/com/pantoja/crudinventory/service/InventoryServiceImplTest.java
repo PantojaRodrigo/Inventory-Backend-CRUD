@@ -5,6 +5,7 @@ import com.pantoja.crudinventory.entity.Item;
 import com.pantoja.crudinventory.entity.Location;
 import com.pantoja.crudinventory.misc.ItemIdExistingException;
 import com.pantoja.crudinventory.misc.ItemNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -106,14 +107,13 @@ class InventoryServiceImplTest {
                 .when(inventoryRepositoryMock).save(item_dup);
         assertThrows(ItemIdExistingException.class,()->inventoryService.save(item_dup));
     }
-    //Falla
     @Test
     void save_withNullArgs() {
-        Location loc = new Location(1,null,"WMD1",12345);
-        Item item = new Item(1,"REMO","A remo",loc);
-        doThrow(new MethodArgumentNotValidException(null, null))
+        Location loc = new Location(1,"california","WMD1",12345);
+        Item item = new Item(1,null,"A remo",loc);
+        doThrow( ConstraintViolationException.class)
                 .when(inventoryRepositoryMock).save(item);
-        assertThrows(MethodArgumentNotValidException.class,()->inventoryService.save(item));
+        assertThrows(ConstraintViolationException.class,()->inventoryService.save(item));
     }
 
 
