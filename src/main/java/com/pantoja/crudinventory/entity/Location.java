@@ -20,12 +20,12 @@ public class Location {
     @Column(name = "address")
     private String address;
     @Column(name = "phoneNumber")
-    private int phoneNumber;
+    private String phoneNumber;
 
     public Location() {
     }
 
-    public Location(int locationId, String state, String address, int phoneNumber) {
+    public Location(int locationId, String state, String address, String phoneNumber) {
         this.locationId = locationId;
         this.state = state;
         this.address = address;
@@ -56,11 +56,11 @@ public class Location {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

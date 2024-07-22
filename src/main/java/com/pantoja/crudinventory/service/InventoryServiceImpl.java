@@ -37,14 +37,16 @@ public class InventoryServiceImpl implements InventoryService{
     @Override
     @Transactional
     public Item save(Item item) {
-        if(inventoryRepository.findById(item.getItemId()).isPresent()) throw  new ItemIdExistingException(item.getItemId());
+        //Return DTO
+        if(inventoryRepository.existsById(item.getItemId())) throw  new ItemIdExistingException(item.getItemId());
+        //DAO to DTO
         return inventoryRepository.save(item);
     }
 
     @Override
     @Transactional
     public void deleteById(int id) {
-        Item theItem =  inventoryRepository.findById(id).orElseThrow(()->new ItemNotFoundException(id));
+        if(!inventoryRepository.existsById(id)) throw  new ItemNotFoundException(id);
         inventoryRepository.deleteById(id);
     }
 }

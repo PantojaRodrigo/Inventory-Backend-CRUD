@@ -18,32 +18,33 @@ import java.util.Optional;
 
 @RestController
 @Validated
+@RequestMapping("/items")
+@CrossOrigin(origins = "http://localhost:3000")
 public class InventoryController {
     private InventoryService inventoryService;
 
     public InventoryController(InventoryService inventoryService){
         this.inventoryService=inventoryService;
     }
-    @GetMapping("/items")
+    @GetMapping
     public Flux<Item> getItems(@RequestParam(required = false) String state){
         if(state!=null) return inventoryService.findAll(state);
         else return inventoryService.findAll();
     }
 
-    @GetMapping("/items/{id}")
+    @GetMapping("/{id}")
     public Item getItemById(@PathVariable("id") int id){
         return inventoryService.findById(id);
     }
 
-    @PostMapping("/items")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Item addItem(@Valid @RequestBody Item item){
-        Item dbItem = inventoryService.save(item);
-        return dbItem;
+        return inventoryService.save(item);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/items/{id}")
+    @DeleteMapping("/{id}")
     public String deleteItem(@PathVariable int id){
         Item item = inventoryService.findById(id);
         inventoryService.deleteById(id);

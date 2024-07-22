@@ -35,9 +35,9 @@ class InventoryServiceImplTest {
     @BeforeEach
     void setup(){
          items = new ArrayList<>();
-        Location loc1 = new Location(1,"available","WMD1",12345);
-        Location loc2 = new Location(2,"damaged","WMD1",54321);
-        Location loc3 = new Location(3,"available","WMD1",98766);
+        Location loc1 = new Location(1,"available","WMD1","12345");
+        Location loc2 = new Location(2,"damaged","WMD1","54321");
+        Location loc3 = new Location(3,"available","WMD1","98766");
         Item item1 =  new Item(1,"AHOOK","A hook",loc1);
         Item item2 =  new Item(2,"BASEBALL","A baseball",loc2);
         Item item3 =  new Item(3,"CAN","A can",loc3);
@@ -86,7 +86,7 @@ class InventoryServiceImplTest {
 
     @Test
     void save() {
-        Location loc = new Location(1,"available","WMD1",12345);
+        Location loc = new Location(1,"available","WMD1","12345");
         Item item = new Item(1,"REMO","A remo",loc);
         when(inventoryRepositoryMock.save(item)).thenReturn(item);
         Item actual = inventoryService.save(item);
@@ -95,13 +95,13 @@ class InventoryServiceImplTest {
     //TODO:Unit Test unhappy path
     @Test
     void save_Duplicate() {
-        Location loc = new Location(1,"available","WMD1",12345);
+        Location loc = new Location(1,"available","WMD1","12345");
         Item item = new Item(1,"REMO","A remo",loc);
         when(inventoryRepositoryMock.save(item)).thenReturn(item);
         Item actual = inventoryService.save(item);
         assertEquals(item,actual);
 
-        Location loc_dup = new Location(2,"available","WMD1",12345);
+        Location loc_dup = new Location(2,"available","WMD1","12345");
         Item item_dup = new Item(1,"REMO","A remo",loc);
         doThrow(new ItemIdExistingException(item.getItemId()))
                 .when(inventoryRepositoryMock).save(item_dup);
@@ -109,7 +109,7 @@ class InventoryServiceImplTest {
     }
     @Test
     void save_withNullArgs() {
-        Location loc = new Location(1,"california","WMD1",12345);
+        Location loc = new Location(1,"california","WMD1","12345");
         Item item = new Item(1,null,"A remo",loc);
         doThrow( ConstraintViolationException.class)
                 .when(inventoryRepositoryMock).save(item);

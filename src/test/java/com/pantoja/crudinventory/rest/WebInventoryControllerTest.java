@@ -32,7 +32,7 @@ class WebInventoryControllerTest {
 
     @Test
     void addItem_testValidAnnotaiton_invalidId() throws Exception{
-        Location loc = new Location(1, "asda", "WMD1", 12345);
+        Location loc = new Location(1, "asda", "WMD1", "12345");
         Item item = new Item(0, "REMO", "A remo", loc);
         Item item2 = new Item();
         String reqBody = new ObjectMapper().writeValueAsString(item);
@@ -50,7 +50,7 @@ class WebInventoryControllerTest {
     }
     @Test
     void addItem_testValidAnnotaiton_noName() throws Exception{
-        Location loc = new Location(1, "asda", "WMD1", 12345);
+        Location loc = new Location(1, "asda", "WMD1", "12345");
         Item item = new Item(1, null, "A remo", loc);
         Item item2 = new Item();
         String reqBody = new ObjectMapper().writeValueAsString(item);
@@ -69,7 +69,7 @@ class WebInventoryControllerTest {
 
     @Test
     void addItem_testValidAnnotaiton_noState() throws Exception{
-        Location loc = new Location(1, null, "WMD1", 12345);
+        Location loc = new Location(1, null, "WMD1", "12345");
         Item item = new Item(1, "REMO", "A remo", loc);
         Item item2 = new Item();
         String reqBody = new ObjectMapper().writeValueAsString(item);

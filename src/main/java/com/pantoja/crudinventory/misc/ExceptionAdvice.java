@@ -39,7 +39,7 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public String locationExistingId(DataIntegrityViolationException ex) {
-        return "El location id ya existe";
+        return "The location with that ID already exists";
     }
 
     @ResponseBody
