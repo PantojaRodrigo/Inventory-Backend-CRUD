@@ -27,8 +27,8 @@ public class InventoryController {
         this.inventoryService=inventoryService;
     }
     @GetMapping
-    public Flux<Item> getItems(@RequestParam(required = false) String state){
-        if(state!=null) return inventoryService.findAll(state);
+    public Flux<Item> getItems(@RequestParam(required = false) String search){
+        if(search!=null) return inventoryService.findAll(search);
         else return inventoryService.findAll();
     }
 
@@ -51,6 +51,4 @@ public class InventoryController {
         return "Deleted item id: "+ id;
 
     }
-
-
 }

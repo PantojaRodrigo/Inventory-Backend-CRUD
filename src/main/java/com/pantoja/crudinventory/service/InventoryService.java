@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import java.util.Optional;
 
 public interface InventoryService {
-    Flux<Item> findAll(String state);
+    Flux<Item> findAll(String search);
     Flux<Item> findAll();
     Item findById(int id);
     Item save(Item item);
