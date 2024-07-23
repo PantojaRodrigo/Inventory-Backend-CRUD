@@ -51,6 +51,14 @@ public class InventoryServiceImpl implements InventoryService{
 
     @Override
     @Transactional
+    public Item update(int id,Item item) {
+        item.setItemId(id);
+        //DAO to DTO
+        return inventoryRepository.save(item);
+    }
+
+    @Override
+    @Transactional
     public void deleteById(int id) {
         if(!inventoryRepository.existsById(id)) throw  new ItemNotFoundException(id);
         inventoryRepository.deleteById(id);

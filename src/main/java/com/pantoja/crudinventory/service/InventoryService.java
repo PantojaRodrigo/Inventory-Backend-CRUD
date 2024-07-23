@@ -10,5 +10,6 @@ public interface InventoryService {
     Flux<Item> findAll();
     Item findById(int id);
     Item save(Item item);
+    Item update(int id,Item item);
     void deleteById(int id);
 }

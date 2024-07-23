@@ -43,6 +43,15 @@ public class InventoryController {
         return inventoryService.save(item);
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Item update(@PathVariable("id") int id,@Valid @RequestBody Item item){
+        Item oldItem = inventoryService.findById(id);
+
+        return inventoryService.update(id,item);
+    }
+
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public String deleteItem(@PathVariable int id){
